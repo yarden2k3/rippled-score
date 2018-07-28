@@ -1,7 +1,7 @@
-# rippled-score
+# Rippled Score
 SDK for multi-player game scoring using ripple protocol
 
-## functions:
+## Functions:
 
 API Call | Description  | Parameters
 --- |--- | ---
