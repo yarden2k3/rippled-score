@@ -34,3 +34,7 @@ function transfer_points {
 	TXBLOB=`echo $SIGN | grep "tx_blob\"\s*:\s*\"[a-zA-Z0-9]*" -o | sed 's/tx_blob" : "//'`
 	rippled submit $TXBLOB 2>/dev/null >/dev/null
 }
+
+function user_status {
+	echo `rippled account_info $1`
+}
