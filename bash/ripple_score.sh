@@ -36,8 +36,8 @@ function transfer_points {
 }
 
 function user_status {
-<<<<<<< HEAD
 	echo `rippled account_info $1 2>/dev/null`
+
 }
 
 function top_ten {
@@ -84,10 +84,3 @@ function top_ten {
 
 }
 
-
-
-
-=======
-	echo `rippled account_info $1`
-}
->>>>>>> be90b2706cd9a1472a154ff3fa522471756e0ddf
