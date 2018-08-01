@@ -33,7 +33,7 @@ function transfer_points {
 	TRANSACTION='{"TransactionType": "Payment", "Account": "'$FRSTPLAYER'", "Destination": "'$SCNDPLAYER'", "Amount": "5000000",  "Fee": "'$FEE'", "Flags": "0", "Sequence": "'$SEQUENCE'"}'
 	SIGN=`rippled sign $SECRET "$TRANSACTION" offline 2>/dev/null`
 	TXBLOB=`echo $SIGN | grep "tx_blob\"\s*:\s*\"[a-zA-Z0-9]*" -o | sed 's/tx_blob" : "//'`
-	rippled submit $TXBLOB #2>/dev/null >/dev/null
+	rippled submit $TXBLOB 2>/dev/null >/dev/null
 }
 
 function user_status {

@@ -50,7 +50,7 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (GameGrid, PageOne, PageTwo):
+        for F in (GameGrid, PageTwo):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -68,21 +68,6 @@ class SampleApp(tk.Tk):
         frame.tkraise()
         frame.focus_set()
 
-
-class StartPage(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-        label = tk.Label(self, text="This is the start page", font=controller.title_font)
-        label.pack(side="top", fill="x", pady=10)
-
-        button1 = tk.Button(self, text="Go to Page One",
-                            command=lambda: controller.show_frame("PageOne"))
-        button2 = tk.Button(self, text="Go to Page Two",
-                            command=lambda: controller.show_frame("PageTwo"))
-        button1.pack()
-        button2.pack()
 
 class GameGrid(tk.Frame):
     def __init__(self, parent, controller):
@@ -158,6 +143,11 @@ class GameGrid(tk.Frame):
                 if game_state(self.matrix)=='lose':
                     self.grid_cells[1][1].configure(text="You",bg=BACKGROUND_COLOR_CELL_EMPTY)
                     self.grid_cells[1][2].configure(text="Lose!",bg=BACKGROUND_COLOR_CELL_EMPTY)
+                    subprocess.run(['rp_transfer_points', self.controller.username, 'rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh' , self.controller.password])
+                    balance=subprocess.check_output(['rp_user_balance', self.controller.username ])
+                    balance= int(balance)
+                    balance=balance/1000000
+                    box.showinfo('info' , int(balance))
 
 
     def generate_next(self):
@@ -166,33 +156,12 @@ class GameGrid(tk.Frame):
             index = (self.gen(), self.gen())
         self.matrix[index[0]][index[1]] = 2
 
-class PageOne(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-        #gamegrid = GameGrid()
-        label = tk.Label(self, text="This is page 1", font=controller.title_font)
-        label.pack(side="top", fill="x", pady=10)
-        button = tk.Button(self, text="Go to the start page",
-                           command=lambda: controller.show_frame("StartPage"))
-        button.pack()
-
 
 class PageTwo(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        #label = tk.Label(self, text="This is page 2", font=controller.title_font)
-        #label.pack(side="top", fill="x", pady=10)
-       # button = tk.Button(self, text="Go to the start page",
-        #                   command=lambda: controller.show_frame("StartPage"))
-        #button.pack()
-
-        #window = tk.Tk()
-        #window.title('Countries Generation')
-        #frame = tk.Frame(window)
 
         Label1 = tk.Label(self, text = 'Username:')
         Label1.pack(padx=15,pady= 5)
@@ -223,7 +192,7 @@ class PageTwo(tk.Frame):
         #check if valid
         r = subprocess.run(['rp_user_validator', username , password])
         print (r.returncode)
-        if True or r.returncode == 0:
+        if  r.returncode == 0:
             box.showinfo('info','Correct Login')
             self.controller.username = username
             self.controller.password = password
