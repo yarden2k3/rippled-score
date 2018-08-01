@@ -26,11 +26,19 @@ KEY_DOWN = "'s'"
 KEY_LEFT = "'a'"
 KEY_RIGHT = "'d'"
 
+#tk.Frame.__init__(self, parent)
+#        self.controller = controller
+#        #gamegrid = GameGrid()
+#        label = tk.Label(self, text="This is page 1", font=controller.title_font)
+#        label.pack(side="top", fill="x", pady=10)
+#        button = tk.Button(self, text="Go to the start page",
+#                           command=lambda: controller.show_frame("StartPage"))
+#        button.pack()
+
 class GameGrid(Frame):
-    def __init__(self, window=None):
-        if window is None:
-            window = self 
-        Frame.__init__(window)
+    def __init__(self):
+
+        Frame.__init__(self)
 
         self.grid()
         self.master.title('2048')
@@ -45,7 +53,7 @@ class GameGrid(Frame):
         self.init_matrix()
         self.update_grid_cells()
         
-        # self.mainloop()
+        self.mainloop()
 
     def init_grid(self):
         background = Frame(self, bg=BACKGROUND_COLOR_GAME, width=SIZE, height=SIZE)
@@ -103,4 +111,4 @@ class GameGrid(Frame):
             index = (self.gen(), self.gen())
         self.matrix[index[0]][index[1]] = 2
 
-#gamegrid = GameGrid()
+gamegrid = GameGrid()
