@@ -41,6 +41,15 @@ function user_status {
 
 }
 
+
+function user_balance {
+	ACCOUNT=$1
+	#echo `rippled account_info $1 2>/dev/null`
+	ACC=`user_status $ACCOUNT`
+	BALANCE=`echo $ACC | grep "Balance\"\s*:\s*\"[0-9]*" -o | sed 's/Balance" : "//'`
+	echo $BALANCE
+}
+
 function user_validator {
 	EXIT_CODE=1
 	ACCOUNT=$1
